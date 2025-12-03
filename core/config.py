@@ -1,11 +1,11 @@
-from pydantic import baseSettings
+from pydantic import BaseSettings
 
-class settings(baseSettings):
-    APP_NAME : str
-    APP_VERSION : str 
-    SECRET_KEY : str
+class Settings(BaseSettings):
+    APP_NAME: str
+    APP_VERSION: str
+    SECRET_KEY: str
 
-class config:
-    env_file = ".env"
+    class Config:
+        env_file = ".env"
 
 settings = Settings()
