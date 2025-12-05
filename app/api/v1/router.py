@@ -5,17 +5,15 @@ from app.schemas.biometric import (
     BiometricMatchRequest,
     BiometricMatchResponse
 )
-from app.services.biometric_service import (
-    save_biometric_data,
-    match_biometric_data
-)
+
+from app.services.biometric_service import BiometricService
 
 router = APIRouter()
-
+service = BiometricService()
 
 @router.post("/biometric/register", response_model=BiometricResponse)
 def register_biometric(payload: BiometricCreate):
-    save_biometric_data(
+    service.save_biometric_data(
         user_id=payload.user_id,
         biometric_type=payload.biometric_type,
         data=payload.data
@@ -29,7 +27,7 @@ def register_biometric(payload: BiometricCreate):
 
 @router.post("/biometric/match", response_model=BiometricMatchResponse)
 def match_biometric(payload: BiometricMatchRequest):
-    result = match_biometric_data(
+    result = service.match_biometric_data(
         user_id=payload.user_id,
         biometric_type=payload.biometric_type,
         data=payload.data
